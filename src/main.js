@@ -18,6 +18,7 @@ import {
   Dropdown,
   DropdownItem,
   DropdownMenu,
+  Card,
 } from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css';
 
@@ -38,6 +39,7 @@ Vue.use(DropdownItem);
 Vue.use(DropdownMenu);
 Vue.use(Col);
 Vue.use(Row);
+Vue.use(Card);
 Vue.config.productionTip = false
 
 const app = new Vue({
