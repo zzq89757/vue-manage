@@ -5,16 +5,42 @@ import store from './store'
 // import elementUI from 'element-ui'
 import {
   Button,
-  Message
+  Container,
+  Aside,
+  Header,
+  Main,
+  Menu,
+  Col,
+  Row,
+  Submenu,
+  MenuItemGroup,
+  MenuItem,
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
 } from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css';
 
 // Vue.use(elementUI);
 Vue.use(Button);
-Vue.use(Message);
+Vue.use(Container);
+Vue.use(Aside);
+Vue.use(Header);
+Vue.use(Main);
+Vue.use(Menu);
+Vue.use(Col);
+Vue.use(Row);
+Vue.use(Submenu);
+Vue.use(MenuItemGroup);
+Vue.use(MenuItem);
+Vue.use(Dropdown);
+Vue.use(DropdownItem);
+Vue.use(DropdownMenu);
+Vue.use(Col);
+Vue.use(Row);
 Vue.config.productionTip = false
 
-new Vue({
+const app = new Vue({
   router,
   store,
   render: h => h(App)
