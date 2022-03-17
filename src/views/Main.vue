@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <el-container style="height:100vh">
+    <el-container style="height: 100vh">
       <el-aside width="auto">
         <common-aside></common-aside>
       </el-aside>
@@ -9,7 +9,7 @@
           <common-header></common-header>
         </el-header>
         <el-main>
-          <router-view></router-view>
+          <keep-alive><router-view></router-view></keep-alive>
         </el-main>
       </el-container>
     </el-container>
@@ -20,28 +20,23 @@
 
 <script>
 // @ is an alias to /src
-import CommonAside from '@/components/CommonAside'
-import CommonHeader from '@/components/CommonHeader'
+import CommonAside from "@/components/CommonAside";
+import CommonHeader from "@/components/CommonHeader";
 export default {
   name: "Home",
   data() {
-    return {
-      
-    };
+    return {};
   },
-  components: {CommonAside,CommonHeader},
+  components: { CommonAside, CommonHeader },
   methods: {},
 };
 </script>
 
 <style lang="less" scoped>
-.el-header{
+.el-header {
   background-color: #333;
 }
-.el-main{
-  padding-top: 0;
-}
-.route-active{
-  color:red;
+.route-active {
+  color: red;
 }
 </style>

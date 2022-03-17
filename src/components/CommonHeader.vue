@@ -19,10 +19,6 @@
 
 <script>
 export default {
-  
-  created(){
-    console.log(this.$store);
-  },
   data() {
     return {
       usrImg: require("../assets/images/user.png"),
@@ -48,10 +44,12 @@ export default {
   display: flex;
   justify-content: space-between;
   .l-content {
-    width: 100px;
+    // width: 100px;
     display: flex;
-    justify-content: space-evenly;
     align-items: center;
+    h3{
+      margin-left: 10px;
+    }
   }
   .r-content {
     height: 100%;

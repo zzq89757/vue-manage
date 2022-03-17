@@ -2,7 +2,6 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-// import elementUI from 'element-ui'
 import {
   Button,
   Container,
@@ -22,7 +21,6 @@ import {
 } from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css';
 
-// Vue.use(elementUI);
 Vue.use(Button);
 Vue.use(Container);
 Vue.use(Aside);
@@ -42,7 +40,7 @@ Vue.use(Row);
 Vue.use(Card);
 Vue.config.productionTip = false
 
-const app = new Vue({
+new Vue({
   router,
   store,
   render: h => h(App)
