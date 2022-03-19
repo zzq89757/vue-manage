@@ -1,24 +1,27 @@
 <!--  -->
 <template>
-  <div></div>
+  <div>
+    <Echart></Echart>
+    <Echart :chartOption="video"></Echart>
+  </div>
 </template>
 
 <script>
+import Echart from "@/components/Echart";
 export default {
-  data () {
+  data() {
     return {
     };
   },
 
-  components: {},
+  components: { Echart },
 
   computed: {},
 
   mounted: {},
 
-  methods: {}
-}
-
+  methods: {},
+};
 </script>
 <style lang='scss' scoped>
 </style>

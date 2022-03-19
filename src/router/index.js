@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
 
+//配置路由映射信息
 const routes = [{
   path: '/',
   name: 'Main',
@@ -11,22 +12,30 @@ const routes = [{
     name: 'home',
     path: 'home',
     component: () => import('@/views/home/Home.vue'),
+  },{
+    name: 'echart',
+    path: 'echart',
+    component: () => import('@/components/Echart.vue'),
   }, {
     name: 'mall',
     path: 'mall',
-    component: () => import('@/views/home/Home.vue'),
+    component: () => import('@/views/mall/Mall.vue'),
   }, {
     name: 'user',
-    path: 'user'
+    path: 'user',
+    component: () => import('@/views/mall/Mall.vue'),
   }, {
     name: 'page1',
-    path: 'page1'
+    path: 'page1',
+    component: () => import('@/views/mall/Mall.vue'),
   }, {
     name: 'page2',
-    path: 'page2'
+    path: 'page2',
+    component: () => import('@/views/mall/Mall.vue'),
   }]
 }, ]
 
+//配置路由
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,

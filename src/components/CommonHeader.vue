@@ -2,7 +2,11 @@
 <template>
   <div class="header">
     <div class="l-content">
-      <el-button icon="el-icon-menu" size="mini" @click="collapse()"></el-button>
+      <el-button
+        icon="el-icon-menu"
+        size="mini"
+        @click="collapse()"
+      ></el-button>
       <h3 style="color: #fff">首页</h3>
     </div>
     <div class="r-content">
@@ -32,9 +36,9 @@ export default {
   mounted: {},
 
   methods: {
-    collapse(){
-      this.$store.commit('alterCollapse')
-    }
+    collapse() {
+      this.$store.commit("alterCollapse");
+    },
   },
 };
 </script>
@@ -44,10 +48,9 @@ export default {
   display: flex;
   justify-content: space-between;
   .l-content {
-    // width: 100px;
     display: flex;
     align-items: center;
-    h3{
+    h3 {
       margin-left: 10px;
     }
   }
@@ -60,6 +63,7 @@ export default {
       height: 40px;
     }
   }
+  // 下拉菜单样式
   .el-dropdown-link {
     cursor: pointer;
     color: #409eff;

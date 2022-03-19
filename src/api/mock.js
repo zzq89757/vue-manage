@@ -9,4 +9,4 @@ Mock.mock('/api/home/getData', homeApi.getStatisticalData)
 
 Mock.mock(/api\/user\/getUser/, 'get', userApi.getUserList)
 // 权限相关
-Mock.mock(/api\/permission\/getMenu/, 'post', permissionApi.getMenu)
+Mock.mock(/api\/permission\/getMenu/, 'get', permissionApi.getMenu)

@@ -1,79 +1,217 @@
-<!--  -->
 <template>
-  <div class="home">
-    <div class="main_left">
-      <el-card class="user_card"> </el-card>
-      <el-card class="brand_card"> </el-card>
-    </div>
-    <div class="main_right">
-      <el-card class="purchase_graph"></el-card>
-      <el-card class="line_graph"></el-card>
-      <div class="graph">
-        <el-card class="mini_graph"></el-card>
-        <el-card class="mini_graph"></el-card>
+  <el-row :gutter="20" class="home">
+    <el-col span="8">
+      <el-card shadow="hover">
+        <div class="user">
+          <img :src="usrImg" alt="" />
+          <div class="userinfo">
+            <p class="name">Admin</p>
+            <p class="acess">超级管理员</p>
+          </div>
+        </div>
+        <div class="login-info">
+          <p>
+            上次登录时间：<span>{{ lastLoginTime }}</span>
+          </p>
+          <p>上次登录地点：<span>江苏南京</span></p>
+        </div>
+      </el-card>
+      <el-card style="margin-top: 20px; height: 460px" shadow="hover">
+        <el-table :data="tableData">
+          <el-table-column prop="name" label="品牌"> </el-table-column>
+          <el-table-column prop="todayBuy" label="日销量"> </el-table-column>
+          <el-table-column prop="monthBuy" label="月销量"> </el-table-column>
+          <el-table-column prop="totalBuy" label="总销量"> </el-table-column>
+        </el-table>
+      </el-card>
+    </el-col>
+    <el-col span="16">
+      <div class="num">
+        <el-card
+          v-for="item in countData"
+          :key="item.name"
+          :body-style="{ display: 'flex', padding: 0 }"
+          shadow="hover"
+        >
+          <i
+            :class="`el-icon-${item.icon}`"
+            :style="{ background: item.color }"
+            class="icon"
+          ></i>
+          <div class="detail">
+            <p class="num">{{ item.value }}</p>
+            <p class="txt">{{ item.name }}</p>
+          </div>
+        </el-card>
       </div>
-    </div>
-  </div>
+      <el-card style="height: 280px" shadow="hover">
+        <Echart></Echart>
+      </el-card>
+      <div class="graph">
+        <el-card style="height: 264px" shadow="hover">
+          <Echart></Echart>
+        </el-card>
+        <el-card style="height: 264px" shadow="hover">
+          <Echart></Echart>
+        </el-card>
+      </div>
+    </el-col>
+  </el-row>
 </template>
 
+
+<style lang="less" scoped>
+@import "../../assets/less/index.less";
+.el-row {
+  margin-bottom: 20px;
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+.el-col {
+  border-radius: 4px;
+}
+.bg-purple-dark {
+  background: #99a9bf;
+}
+.bg-purple {
+  background: #d3dce6;
+}
+.bg-purple-light {
+  background: #e5e9f2;
+}
+.grid-content {
+  border-radius: 4px;
+  min-height: 36px;
+}
+.row-bg {
+  padding: 10px 0;
+  background-color: #f9fafc;
+}
+
+.user_info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(51, 51, 51, 0.082);
+  // width: 400px;
+  h2 {
+    font-size: 30px;
+    font-weight: 400;
+  }
+  img {
+    width: 200px;
+    border-radius: 50%;
+  }
+}
+.login_info {
+  height: 46px;
+  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+</style>
 <script>
+import { getDate } from "../../utils/date";
+// import { getHome } from "../../api/data";
+import axios from "axios";
+import Echart from "../../components/Echart.vue";
 export default {
-  data() {
-    return {};
+  mounted() {
+    axios
+      .get("/api/home/getData")
+      .then((res) => console.log(res.data.data))
+      .catch((err) => console.log(err));
+    // getHome().then(res=>console.log(res)).catch(err=>console.log(err))
   },
-
-  components: {},
-
-  computed: {},
-
-  mounted: {},
-
-  methods: {},
+  data() {
+    return {
+      usrImg: require("../../assets/images/user.png"),
+      tableData: [
+        {
+          name: "oppo",
+          todayBuy: 100,
+          monthBuy: 300,
+          totalBuy: 800,
+        },
+        {
+          name: "vivo",
+          todayBuy: 100,
+          monthBuy: 300,
+          totalBuy: 800,
+        },
+        {
+          name: "苹果",
+          todayBuy: 100,
+          monthBuy: 300,
+          totalBuy: 800,
+        },
+        {
+          name: "小米",
+          todayBuy: 100,
+          monthBuy: 300,
+          totalBuy: 800,
+        },
+        {
+          name: "三星",
+          todayBuy: 100,
+          monthBuy: 300,
+          totalBuy: 800,
+        },
+        {
+          name: "魅族",
+          todayBuy: 100,
+          monthBuy: 300,
+          totalBuy: 800,
+        },
+      ],
+      countData: [
+        {
+          name: "今日支付订单",
+          value: 1234,
+          icon: "success",
+          color: "#2ec7c9",
+        },
+        {
+          name: "今日收藏订单",
+          value: 210,
+          icon: "star-on",
+          color: "#ffb980",
+        },
+        {
+          name: "今日未支付订单",
+          value: 1234,
+          icon: "s-goods",
+          color: "#5ab1ef",
+        },
+        {
+          name: "本月支付订单",
+          value: 1234,
+          icon: "success",
+          color: "#2ec7c9",
+        },
+        {
+          name: "本月收藏订单",
+          value: 210,
+          icon: "star-on",
+          color: "#ffb980",
+        },
+        {
+          name: "本月未支付订单",
+          value: 1234,
+          icon: "s-goods",
+          color: "#5ab1ef",
+        },
+      ],
+    };
+  },
+  computed: {
+    //随机生成上次登录的时间
+    lastLoginTime() {
+      return getDate(Date.now(), 0);
+    },
+  },
+  components: { Echart },
 };
 </script>
-<style lang='less' scoped>
-.home {
-  display: flex;
-  justify-content: space-between;
-  .main_left {
-    display: flex;
-    flex-direction: column;
-  }
-  .main_right{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-}
-.user_card {
-  width: 400px;
-  height: 200px;
-  margin-bottom: 20px;
-}
-.brand_card {
-  width: 400px;
-  height: 400px;
-}
-.purchase_graph {
-  height: 140px;
-  width: 860px;
-}
-.line_graph {
-  height: 180px;
-}
-.graph {
-  display: flex;
-  .mini_graph {
-    height: 180px;
-    width: 430px;
-  }
-}
-// .bar_graph {
-//   height: 180px;
-//   width: 430px;
-// }
-// .pie_graph {
-//   height: 180px;
-//   width: 430px;
-// }
-</style>

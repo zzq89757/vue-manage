@@ -2,6 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+import './api/mock'
 import {
   Button,
   Container,
@@ -18,9 +19,10 @@ import {
   DropdownItem,
   DropdownMenu,
   Card,
+  Table,
+  TableColumn,
 } from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css';
-
 Vue.use(Button);
 Vue.use(Container);
 Vue.use(Aside);
@@ -38,6 +40,8 @@ Vue.use(DropdownMenu);
 Vue.use(Col);
 Vue.use(Row);
 Vue.use(Card);
+Vue.use(Table);
+Vue.use(TableColumn);
 Vue.config.productionTip = false
 
 new Vue({
