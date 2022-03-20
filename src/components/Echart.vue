@@ -20,16 +20,28 @@ export default {
             type: "pie",
             data: [
               {
-                value: 335,
-                name: "直接访问",
+                name: "小米",
+                value: 2999,
               },
               {
-                value: 234,
-                name: "联盟广告",
+                name: "苹果",
+                value: 5999,
               },
               {
-                value: 1548,
-                name: "搜索引擎",
+                name: "vivo",
+                value: 1500,
+              },
+              {
+                name: "oppo",
+                value: 1999,
+              },
+              {
+                name: "魅族",
+                value: 2200,
+              },
+              {
+                name: "三星",
+                value: 4500,
               },
             ],
           },

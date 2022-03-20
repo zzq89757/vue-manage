@@ -114,58 +114,27 @@
 </style>
 <script>
 import { getDate } from "../../utils/date";
-// import { getHome } from "../../api/data";
 import axios from "axios";
 import Echart from "../../components/Echart.vue";
 export default {
   mounted() {
     axios
       .get("/api/home/getData")
-      .then((res) => console.log(res.data.data))
+      .then((res) => {
+        this.tableData = res.data.data.tableData;
+        this.orderData = res.data.data.orderData;
+        this.userData = res.data.data.userData;
+        this.videoData = res.data.data.videoData;
+        console.log(res.data.data);
+      })
       .catch((err) => console.log(err));
-    // getHome().then(res=>console.log(res)).catch(err=>console.log(err))
   },
   data() {
     return {
       usrImg: require("../../assets/images/user.png"),
-      tableData: [
-        {
-          name: "oppo",
-          todayBuy: 100,
-          monthBuy: 300,
-          totalBuy: 800,
-        },
-        {
-          name: "vivo",
-          todayBuy: 100,
-          monthBuy: 300,
-          totalBuy: 800,
-        },
-        {
-          name: "苹果",
-          todayBuy: 100,
-          monthBuy: 300,
-          totalBuy: 800,
-        },
-        {
-          name: "小米",
-          todayBuy: 100,
-          monthBuy: 300,
-          totalBuy: 800,
-        },
-        {
-          name: "三星",
-          todayBuy: 100,
-          monthBuy: 300,
-          totalBuy: 800,
-        },
-        {
-          name: "魅族",
-          todayBuy: 100,
-          monthBuy: 300,
-          totalBuy: 800,
-        },
-      ],
+      //销量表数据
+      tableData: [],
+      //订单数据
       countData: [
         {
           name: "今日支付订单",
@@ -204,6 +173,13 @@ export default {
           color: "#5ab1ef",
         },
       ],
+      //折线图数据
+      orderData:[],
+      //柱状图数据
+      userData:[],
+      //饼图数据
+      videoData:[],
+
     };
   },
   computed: {
