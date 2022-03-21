@@ -29,7 +29,11 @@ const routes = [{
     path: 'page2',
     component: () => import('@/views/mall/Mall.vue'),
   }]
-},]
+}, {
+  name: 'login',
+  path: '/login',
+  component: () => import('@/views/login/Login.vue'),
+}]
 
 //配置路由
 const router = new VueRouter({
