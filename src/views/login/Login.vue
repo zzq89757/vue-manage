@@ -1,30 +1,23 @@
 <!--  -->
 <template>
   <div>
+    <transition name="bg">
     <div class="bubble">
       <ul class="bg-bubbles">
         <li v-for="i in 10" :key="i"></li>
       </ul>
     </div>
+    </transition>
   </div>
 </template>
 
 <script>
 export default {
-  data() {
-    return {};
-  },
 
-  components: {},
-
-  computed: {},
-
-  mounted: {},
-
-  methods: {},
 };
 </script>
 <style lang='less' scoped>
+
 .bubble {
   width: 100%;
   height: 100vh;
@@ -46,6 +39,7 @@ export default {
     // 默认的气泡大小；
     width: 40px;
     height: 40px;
+    // border-radius: 50%;
     background-color: rgba(255, 255, 255, 0.15);
     list-style: none;
     // 使用自定义动画使气泡渐现、上升和翻滚；
