@@ -1,9 +1,9 @@
 <template>
   <el-row :gutter="20" class="home">
-    <el-col span="8">
+    <el-col :span="8">
       <el-card shadow="hover">
         <div class="user">
-          <img :src="usrImg" alt="" />
+          <img :src="usrImg" alt />
           <div class="userinfo">
             <p class="name">Admin</p>
             <p class="acess">超级管理员</p>
@@ -11,21 +11,25 @@
         </div>
         <div class="login-info">
           <p>
-            上次登录时间：<span>{{ lastLoginTime }}</span>
+            上次登录时间：
+            <span>{{ lastLoginTime }}</span>
           </p>
-          <p>上次登录地点：<span>江苏南京</span></p>
+          <p>
+            上次登录地点：
+            <span>江苏南京</span>
+          </p>
         </div>
       </el-card>
       <el-card style="margin-top: 20px; height: 460px" shadow="hover">
         <el-table :data="tableData">
-          <el-table-column prop="name" label="品牌"> </el-table-column>
-          <el-table-column prop="todayBuy" label="日销量"> </el-table-column>
-          <el-table-column prop="monthBuy" label="月销量"> </el-table-column>
-          <el-table-column prop="totalBuy" label="总销量"> </el-table-column>
+          <el-table-column prop="name" label="品牌"></el-table-column>
+          <el-table-column prop="todayBuy" label="日销量"></el-table-column>
+          <el-table-column prop="monthBuy" label="月销量"></el-table-column>
+          <el-table-column prop="totalBuy" label="总销量"></el-table-column>
         </el-table>
       </el-card>
     </el-col>
-    <el-col span="16">
+    <el-col :span="16">
       <div class="num">
         <el-card
           v-for="item in countData"
@@ -33,26 +37,22 @@
           :body-style="{ display: 'flex', padding: 0 }"
           shadow="hover"
         >
-          <i
-            :class="`el-icon-${item.icon}`"
-            :style="{ background: item.color }"
-            class="icon"
-          ></i>
+          <i :class="`el-icon-${item.icon}`" :style="{ background: item.color }" class="icon"></i>
           <div class="detail">
             <p class="num">{{ item.value }}</p>
             <p class="txt">{{ item.name }}</p>
           </div>
         </el-card>
       </div>
-      <el-card style="height: 280px" shadow="hover">
-        <Echart></Echart>
+      <el-card style="height: 280px;padding:0px;" shadow="hover">
+        <Echart :chartData="lineData" style="line"></Echart>
       </el-card>
       <div class="graph">
         <el-card style="height: 264px" shadow="hover">
-          <Echart></Echart>
+          <Echart :chart-data="userData"></Echart>
         </el-card>
         <el-card style="height: 264px" shadow="hover">
-          <Echart></Echart>
+          <Echart :chart-data="videoData"></Echart>
         </el-card>
       </div>
     </el-col>
@@ -94,7 +94,6 @@
   align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid rgba(51, 51, 51, 0.082);
-  // width: 400px;
   h2 {
     font-size: 30px;
     font-weight: 400;
@@ -111,21 +110,65 @@
   flex-direction: column;
   justify-content: flex-end;
 }
+.line{
+  width:100%
+}
 </style>
 <script>
 import { getDate } from "../../utils/date";
 import axios from "axios";
 import Echart from "../../components/Echart.vue";
 export default {
+  // watch:{
+  //       undealData: function (newVal, oldVal) {
+  //     this.undealData = newVal;  //newVal即是chartData//newVal存在的话执行drawChar函数
+  //   }
+  // },
   mounted() {
     axios
       .get("/api/home/getData")
       .then((res) => {
+        console.log(res);
+        //获取表格数据
         this.tableData = res.data.data.tableData;
-        this.orderData = res.data.data.orderData;
-        this.userData = res.data.data.userData;
-        this.videoData = res.data.data.videoData;
-        console.log(res.data.data);
+
+        //获取折线图数据并处理
+        let undealData = res.data.data.orderData.data;
+        let series = [];
+        const Xais = Object.keys(undealData[0]);
+        Xais.forEach(key => {
+          series.push(
+            {
+              name: key,
+              type: "line",
+              data: undealData.map(item => item[key])
+            }
+          )
+        });
+        this.lineData = { Xais, series };
+
+        //处理用户数据
+        let uData = res.data.data.userData;
+        this.userData = {
+          Xais: uData.map(item => item.date),
+          series: [{
+            name: '新增用户',
+            data: uData.map(item => item.new),
+            type: 'bar',
+          }, {
+            name: '活跃用户',
+            data: uData.map(item => item.active),
+            type: 'bar',
+          }]
+        }
+
+        //处理饼图数据
+        this.videoData = {series:res.data.data.videoData};
+        // this.videoData = {name:vData.map(item=>item['name']),
+        
+        // }
+        console.log(this.videoData);
+
       })
       .catch((err) => console.log(err));
   },
@@ -174,12 +217,12 @@ export default {
         },
       ],
       //折线图数据
-      orderData:[],
+      orderData: [],
       //柱状图数据
-      userData:[],
+      userData: {},
       //饼图数据
-      videoData:[],
-
+      videoData: [],
+      lineData: {},
     };
   },
   computed: {
@@ -187,6 +230,20 @@ export default {
     lastLoginTime() {
       return getDate(Date.now(), 0);
     },
+    dealData() {
+      const series = [];
+      const Xais = Object.keys(this.undealData[0]);
+      Xais.forEach(key => {
+        series.push(
+          {
+            name: key,
+            type: "line",
+            data: undealData.map(item => item[key])
+          }
+        )
+      })
+      return series;
+    }
   },
   components: { Echart },
 };

@@ -28,13 +28,6 @@ export default {
       usrImg: require("../assets/images/user.png"),
     };
   },
-
-  components: {},
-
-  computed: {},
-
-  mounted: {},
-
   methods: {
     collapse() {
       this.$store.commit("alterCollapse");

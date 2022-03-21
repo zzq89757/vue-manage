@@ -20,7 +20,7 @@
       <span slot="title">{{ item.label }}</span>
     </el-menu-item>
     <!-- 含子菜单部分 -->
-    <el-submenu :index="item.path" v-for="item in hassub" :key="item.path">
+    <el-submenu :index="item.label" v-for="item in hassub" :key="item.path">
       <template slot="title">
         <i class="el-icon-location"></i>
         <span slot="title">{{ item.label }}</span>
