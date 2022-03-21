@@ -24,7 +24,7 @@ class AxisChart {
       },
       xAxis: {
         type: "category", // 类目轴
-        data: data.xAxis,
+        data: data.Xais,
         axisLine: {
           lineStyle: {
             color: "#17b3a3",
@@ -67,26 +67,18 @@ class NormalChart {
         "#39c362",
         "#3ed1cf",
       ],
-      series: [{type:'pie',data:data.series}],
+      series: [{ type: 'pie', data: data.series }],
     }
   }
 }
 export default {
-  data() {
-    return {};
-  },
   watch: {
-    chartData:
-    {
+    chartData: {
       handler: function () {
         this.initChart(this.chartData)
       },
-      deep:true
+      deep: true
     }
-  },
-  created() {
-  },
-  mounted() {
   },
   props: {
     chartData: {
@@ -96,21 +88,15 @@ export default {
         () => { },
     },
   },
-  computed: {
-  },
-
-
   methods: {
     //初始化Echart
     initChart(data) {
       const myChart = echarts.init(this.$refs.echart);
-      //如果有坐标则为折线图或者柱状图，没有则为饼图
-      let option = data.Xais? new AxisChart(data).option:new NormalChart(data).option;
+      //如果有坐标相关信息则为折线图或者柱状图，没有则为饼图
+      let option = data.Xais ? new AxisChart(data).option : new NormalChart(data).option;
       myChart.setOption(option);
-      console.log(option);
+      // console.log(option);
     }
   },
 };
 </script>
-<style lang='scss' scoped>
-</style>

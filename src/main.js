@@ -21,6 +21,8 @@ import {
   Card,
   Table,
   TableColumn,
+  Input,
+  Pagination,
 } from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css';
 Vue.use(Button);
@@ -42,6 +44,8 @@ Vue.use(Row);
 Vue.use(Card);
 Vue.use(Table);
 Vue.use(TableColumn);
+Vue.use(Input);
+Vue.use(Pagination)
 Vue.config.productionTip = false
 
 new Vue({

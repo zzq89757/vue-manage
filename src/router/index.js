@@ -12,10 +12,6 @@ const routes = [{
     name: 'home',
     path: 'home',
     component: () => import('@/views/home/Home.vue'),
-  },{
-    name: 'echart',
-    path: 'echart',
-    component: () => import('@/components/Echart.vue'),
   }, {
     name: 'mall',
     path: 'mall',
@@ -23,7 +19,7 @@ const routes = [{
   }, {
     name: 'user',
     path: 'user',
-    component: () => import('@/views/mall/Mall.vue'),
+    component: () => import('@/views/user/User.vue'),
   }, {
     name: 'page1',
     path: 'page1',
@@ -33,7 +29,7 @@ const routes = [{
     path: 'page2',
     component: () => import('@/views/mall/Mall.vue'),
   }]
-}, ]
+},]
 
 //配置路由
 const router = new VueRouter({

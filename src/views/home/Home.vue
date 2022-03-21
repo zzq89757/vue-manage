@@ -119,16 +119,11 @@ import { getDate } from "../../utils/date";
 import axios from "axios";
 import Echart from "../../components/Echart.vue";
 export default {
-  // watch:{
-  //       undealData: function (newVal, oldVal) {
-  //     this.undealData = newVal;  //newVal即是chartData//newVal存在的话执行drawChar函数
-  //   }
-  // },
   mounted() {
     axios
       .get("/api/home/getData")
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         //获取表格数据
         this.tableData = res.data.data.tableData;
 
@@ -164,10 +159,6 @@ export default {
 
         //处理饼图数据
         this.videoData = {series:res.data.data.videoData};
-        // this.videoData = {name:vData.map(item=>item['name']),
-        
-        // }
-        console.log(this.videoData);
 
       })
       .catch((err) => console.log(err));
@@ -217,12 +208,11 @@ export default {
         },
       ],
       //折线图数据
-      orderData: [],
+      lineData: {},
       //柱状图数据
       userData: {},
       //饼图数据
-      videoData: [],
-      lineData: {},
+      videoData: {},
     };
   },
   computed: {
@@ -230,20 +220,6 @@ export default {
     lastLoginTime() {
       return getDate(Date.now(), 0);
     },
-    dealData() {
-      const series = [];
-      const Xais = Object.keys(this.undealData[0]);
-      Xais.forEach(key => {
-        series.push(
-          {
-            name: key,
-            type: "line",
-            data: undealData.map(item => item[key])
-          }
-        )
-      })
-      return series;
-    }
   },
   components: { Echart },
 };
