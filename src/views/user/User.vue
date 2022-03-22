@@ -124,8 +124,8 @@ export default {
       this.userData.unshift(data);
     },
     //直接通过数组索引修改数据，vue无法监听,需要使用vue.set
-    updated(data, index) {
-      Vue.set(this.userData, 0, data)
+    updated(data) {
+      Vue.set(this.userData, this.cur, data)
       console.log(this.userData[0]);
     },
   },
