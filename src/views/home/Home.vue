@@ -130,8 +130,11 @@ export default {
         //获取折线图数据并处理
         let undealData = res.data.data.orderData.data;
         let series = [];
-        const Xais = Object.keys(undealData[0]);
-        Xais.forEach(key => {
+        let Xais = res.data.data.orderData.date;
+        //获取各品牌列表
+        const brand = Object.keys(undealData[0]);
+        //整合各个品牌数据
+        brand.forEach(key => {
           series.push(
             {
               name: key,

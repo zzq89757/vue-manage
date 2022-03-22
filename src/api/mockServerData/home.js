@@ -1,7 +1,7 @@
 // mock数据模拟
 import Mock from 'mockjs'
 
-// 图表数据
+// 折线图数据
 let List = []
 export default {
   getStatisticalData: () => {
@@ -25,27 +25,27 @@ export default {
         videoData: [
           {
             name: '小米',
-            value: 2999
+            value: 2974
           },
           {
             name: '苹果',
-            value: 5999
+            value: 5912
           },
           {
             name: 'vivo',
-            value: 1500
+            value: 1578
           },
           {
             name: 'oppo',
-            value: 1999
+            value: 1957
           },
           {
             name: '魅族',
-            value: 2200
+            value: 1201
           },
           {
             name: '华为',
-            value: 4500
+            value: 4989
           }
         ],
         // 柱状图
@@ -91,42 +91,43 @@ export default {
           date: ['20220301', '20220302', '20220303', '20220304', '20220305', '20220306', '20220307'],
           data: List
         },
+        // 表格数据
         tableData: [
           {
             name: 'oppo',
-            todayBuy: 500,
-            monthBuy: 3500,
-            totalBuy: 22000
+            todayBuy: 344,
+            monthBuy: 3542,
+            totalBuy: 22396
           },
           {
             name: 'vivo',
-            todayBuy: 300,
-            monthBuy: 2200,
-            totalBuy: 24000
+            todayBuy: 325,
+            monthBuy: 2267,
+            totalBuy: 24453
           },
           {
             name: '苹果',
-            todayBuy: 800,
-            monthBuy: 4500,
-            totalBuy: 65000
+            todayBuy: 876,
+            monthBuy: 4508,
+            totalBuy: 65778
           },
           {
             name: '小米',
-            todayBuy: 1200,
-            monthBuy: 6500,
-            totalBuy: 45000
+            todayBuy: 833,
+            monthBuy: 3574,
+            totalBuy: 45264
           },
           {
-            name: '三星',
-            todayBuy: 300,
-            monthBuy: 2000,
-            totalBuy: 34000
+            name: '华为',
+            todayBuy: 873,
+            monthBuy: 4777,
+            totalBuy: 54764
           },
           {
             name: '魅族',
-            todayBuy: 350,
-            monthBuy: 3000,
-            totalBuy: 22000
+            todayBuy: 322,
+            monthBuy: 2103,
+            totalBuy: 22546
           }
         ]
       }

@@ -23,7 +23,10 @@ import {
   TableColumn,
   Input,
   Pagination,
-} from 'element-ui'
+  Dialog,
+  DatePicker,
+}
+from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css';
 Vue.use(Button);
 Vue.use(Container);
@@ -45,7 +48,10 @@ Vue.use(Card);
 Vue.use(Table);
 Vue.use(TableColumn);
 Vue.use(Input);
-Vue.use(Pagination)
+Vue.use(Dialog);
+Vue.use(DatePicker);
+Vue.use(Pagination);
+
 Vue.config.productionTip = false
 
 new Vue({

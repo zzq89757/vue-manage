@@ -27,7 +27,7 @@ for (let i = 0; i < count; i++) {
       addr: Mock.mock('@county(true)'),
       'age|18-60': 1,
       birth: Mock.Random.date(),
-      sex: Mock.Random.integer(0, 1)
+      sex: Mock.Random.character('男女')
     })
   )
 }

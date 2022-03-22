@@ -1,23 +1,45 @@
 <!--  -->
 <template>
   <div>
-    <!-- 顶部按钮搜索框 -->
+    <!-- 顶部新增按钮及搜索框 -->
     <div class="top_area">
-      <el-button type="primary" icon="el-icon-document-add">新增</el-button>
+      <el-button
+        type="primary"
+        icon="el-icon-document-add"
+        @click="isShow = true"
+        >新增</el-button
+      >
       <div class="top_right">
         <el-input class="top_input"></el-input>
         <el-button type="primary" icon="el-icon-search">搜索</el-button>
       </div>
     </div>
+    <!-- dialog弹窗 -->
+    <el-dialog :visible.sync="isShow" title="新增用户"
+      ><CommonForm></CommonForm
+    ></el-dialog>
     <!-- 用户数据表格 -->
     <el-card shadow="hover" style="">
-      <el-table style="height:100%" :data="userData">
-          <el-table-column prop="id" label="卡号"></el-table-column>
-          <el-table-column prop="name" label="姓名"></el-table-column>
-          <el-table-column prop="sex" label="性别"></el-table-column>
-          <el-table-column prop="age" label="年龄"></el-table-column>
-          <el-table-column prop="birth" label="出生日期"></el-table-column>
-          <el-table-column prop="addr" label="住址"></el-table-column>
+      <el-table style="height: 100%" :data="userData">
+        <el-table-column prop="id" label="卡号"></el-table-column>
+        <el-table-column prop="name" label="姓名"></el-table-column>
+        <el-table-column prop="sex" label="性别"></el-table-column>
+        <el-table-column prop="age" label="年龄"></el-table-column>
+        <el-table-column prop="birth" label="出生日期"></el-table-column>
+        <el-table-column label="操作">
+          <template slot-scope="scope">
+            <el-button size="mini" @click="handleEdit(scope.$index, scope.row)"
+              >编辑</el-button
+            >
+            <el-button
+              size="mini"
+              type="danger"
+              @click="handleDelete(scope.$index, scope.row)"
+              >删除</el-button
+            >
+          </template>
+        </el-table-column>
+        <el-table-column prop="addr" label="住址"></el-table-column>
       </el-table>
     </el-card>
     <!-- 底部分页器 -->
@@ -28,22 +50,34 @@
 </template>
 
 <script>
-import axios from 'axios';
+import axios from "axios";
+import CommonForm from "../../components/CommonForm.vue";
 export default {
   data() {
     return {
-      userData:[]
+      userData: [],
+      isShow: false,
     };
   },
   mounted() {
     axios
-      .get('/api/user/getUser')
-      .then(res => {this.userData=res.data.list;console.log(this.userData);})
-      .catch(err => console.log(err))
-      
+      .get("/api/user/getUser")
+      .then((res) => {
+        this.userData = res.data.list;
+        console.log(this.userData);
+      })
+      .catch((err) => console.log(err));
   },
-}
-
+  components: { CommonForm },
+  methods: {
+    handleEdit(index, row) {
+      console.log(index, row);
+    },
+    handleDelete(index, row) {
+      console.log(index, row);
+    },
+  },
+};
 </script>
 <style lang='less' scoped>
 .top_area {
@@ -52,6 +86,7 @@ export default {
   margin-bottom: 10px;
   .top_right {
     display: flex;
+    align-items: center;
     button {
       margin-left: 20px;
     }
@@ -64,8 +99,9 @@ export default {
     width: 200px;
   }
 }
-.pagination {
-  margin-top: 20px;
-  float: right;
+.el-pagination {
+  margin: 24px;
+  display: flex;
+  justify-content: flex-end;
 }
 </style>
