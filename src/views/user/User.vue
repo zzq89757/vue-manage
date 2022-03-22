@@ -6,7 +6,7 @@
       <el-button
         type="primary"
         icon="el-icon-document-add"
-        @click="isShow = true"
+        @click="handleCreate()"
         >新增</el-button
       >
       <div class="top_right">
@@ -15,8 +15,13 @@
       </div>
     </div>
     <!-- dialog弹窗 -->
-    <el-dialog :visible.sync="isShow" title="新增用户"
-      ><CommonForm></CommonForm
+    <el-dialog :visible.sync="isShow" :title="dialogMethod" :closeOnClickModal="false"
+      ><CommonForm
+        @emitClose="handleClose"
+        @emitupdate="updated"
+        @emitadd="add"
+        :inputData="userMessage"
+      ></CommonForm
     ></el-dialog>
     <!-- 用户数据表格 -->
     <el-card shadow="hover" style="">
@@ -52,11 +57,15 @@
 <script>
 import axios from "axios";
 import CommonForm from "../../components/CommonForm.vue";
+import { MessageBox, Message } from "element-ui";
 export default {
   data() {
     return {
       userData: [],
       isShow: false,
+      dialogMethod: "添加用户",
+      userMessage: {},
+      cur:0
     };
   },
   mounted() {
@@ -71,10 +80,47 @@ export default {
   components: { CommonForm },
   methods: {
     handleEdit(index, row) {
-      console.log(index, row);
+      this.dialogMethod = "编辑用户";
+      this.userMessage = {...row};
+      this.isShow = true;
+      this.cur = index;
     },
     handleDelete(index, row) {
-      console.log(index, row);
+      MessageBox.confirm("此操作将永久删除该用户, 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+        closeOnClickModal:false,
+        center: true,
+      })
+        .then(() => {
+          Message({
+            type: "success",
+            message: "删除成功!",
+          });
+          this.userData.splice(index,1);
+          console.log('deleted');
+        })
+        .catch(() => {
+          Message({
+            type: "info",
+            message: "已取消删除",
+          });
+        });
+    },
+    handleClose() {
+      this.isShow = false;
+    },
+    handleCreate() {
+      this.dialogMethod = "新增用户";
+      this.userMessage = {};
+      this.isShow = true;
+    },
+    add(data){
+      this.userData.unshift(data);
+    },
+    updated(data,index){
+      console.log(index);
     },
   },
 };

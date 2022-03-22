@@ -25,6 +25,8 @@ import {
   Pagination,
   Dialog,
   DatePicker,
+  Select,
+  Option,
 }
 from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css';
@@ -51,6 +53,8 @@ Vue.use(Input);
 Vue.use(Dialog);
 Vue.use(DatePicker);
 Vue.use(Pagination);
+Vue.use(Select);
+Vue.use(Option);
 
 Vue.config.productionTip = false
 
