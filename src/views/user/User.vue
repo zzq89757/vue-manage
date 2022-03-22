@@ -15,7 +15,10 @@
       </div>
     </div>
     <!-- dialog弹窗 -->
-    <el-dialog :visible.sync="isShow" :title="dialogMethod" :closeOnClickModal="false"
+    <el-dialog
+      :visible.sync="isShow"
+      :title="dialogMethod"
+      :closeOnClickModal="false"
       ><CommonForm
         @emitClose="handleClose"
         @emitupdate="updated"
@@ -58,6 +61,7 @@
 import axios from "axios";
 import CommonForm from "../../components/CommonForm.vue";
 import { MessageBox, Message } from "element-ui";
+import Vue from 'vue';
 export default {
   data() {
     return {
@@ -65,7 +69,7 @@ export default {
       isShow: false,
       dialogMethod: "添加用户",
       userMessage: {},
-      cur:0
+      cur: 0,
     };
   },
   mounted() {
@@ -81,7 +85,7 @@ export default {
   methods: {
     handleEdit(index, row) {
       this.dialogMethod = "编辑用户";
-      this.userMessage = {...row};
+      this.userMessage = { ...row };
       this.isShow = true;
       this.cur = index;
     },
@@ -90,7 +94,7 @@ export default {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning",
-        closeOnClickModal:false,
+        closeOnClickModal: false,
         center: true,
       })
         .then(() => {
@@ -98,8 +102,8 @@ export default {
             type: "success",
             message: "删除成功!",
           });
-          this.userData.splice(index,1);
-          console.log('deleted');
+          this.userData.splice(index, 1);
+          console.log("deleted");
         })
         .catch(() => {
           Message({
@@ -116,11 +120,13 @@ export default {
       this.userMessage = {};
       this.isShow = true;
     },
-    add(data){
+    add(data) {
       this.userData.unshift(data);
     },
-    updated(data,index){
-      console.log(index);
+    //直接通过数组索引修改数据，vue无法监听,需要使用vue.set
+    updated(data, index) {
+      Vue.set(this.userData, 0, data)
+      console.log(this.userData[0]);
     },
   },
 };
