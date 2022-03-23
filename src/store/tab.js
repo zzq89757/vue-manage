@@ -8,8 +8,4 @@ export default {
       state.isCollapse=!state.isCollapse
     }
   },
-  actions: {
-  },
-  modules: {
-  }
 }

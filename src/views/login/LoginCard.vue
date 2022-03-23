@@ -5,30 +5,44 @@
     <div class="login_box box2"></div>
     <el-card class="card">
       <h3>欢迎使用后台管理系统</h3>
-      <el-input autofocus></el-input>
-      <el-input></el-input>
-      <el-button type="primary">登录</el-button>
+      <el-input v-model="uname"></el-input>
+      <el-input v-model="password" type="password" autofocus @keyup.enter.native="handleLogin()"></el-input>
+      <el-button type="primary" @click="handleLogin()">登录</el-button>
     </el-card>
   </div>
 </template>
-
 <script>
+import { Message } from 'element-ui'
 export default {
+  name: 'LoginCard',
   data() {
     return {
-    };
+      uname: "admin",
+      password: "admin"
+    }
   },
-
-  components: {},
-
-  computed: {},
-
-  mounted: {},
-
-  methods: {}
+  methods: {
+    handleLogin() {
+      if (this.uname === "admin" && this.password === "admin") {
+        //设置token
+        this.$store.commit('setToken','admin');
+        //提示登录成功并跳转
+        Message({
+          type: "success",
+          message: "登录成功!",
+        });
+        this.$router.push('home');
+      } else {
+        Message({
+          type: "error",
+          message: "用户名或密码错误"
+        })
+      }
+    }
+  }
 }
-
 </script>
+
 <style lang='less' scoped>
 .card {
   width: 580px;

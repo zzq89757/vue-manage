@@ -30,6 +30,7 @@ import {
 }
 from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css';
+import Cookies from 'js-cookie'
 Vue.use(Button);
 Vue.use(Container);
 Vue.use(Aside);
@@ -58,6 +59,17 @@ Vue.use(Option);
 
 Vue.config.productionTip = false
 
+//使用全局导航守卫
+router.beforeEach(
+  (to,from,next)=>{
+    //若无token且当前页面不为登录页，则跳转至登录页
+    //若使用vuex的getters 跳转会有问题
+    if(!Cookies.get('token') && to.path!="/login"){
+      next({name:"login"})
+    }
+    next()
+  }
+)
 new Vue({
   router,
   store,

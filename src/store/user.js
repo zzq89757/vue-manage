@@ -1,17 +1,12 @@
-export default {
-  state: {
-    isShow: false
-  },
-  mutations: {
-    showDialog(state) {
-      state.isShow = true;
-    },
-    hideDialog(state) {
-      state.isShow = false;
-    }
-  },
-  actions: {
+import Cookie from 'js-cookie';
 
+export default {
+  mutations: {
+    setToken(state,val){
+      Cookie.set('token',val);
+    },
+    cleanToken(state){
+      Cookie.remove('token');
+    },
   },
-  modules: {}
 }

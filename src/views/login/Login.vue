@@ -10,7 +10,7 @@
 import LoginCard from "./LoginCard.vue";
 import BubbleBg from "./BubbleBg.vue";
 export default {
-    components: { LoginCard, BubbleBg }
+    components: { LoginCard, BubbleBg },
 };
 </script>
 <style lang='less' scoped>

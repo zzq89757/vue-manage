@@ -1,3 +1,4 @@
+import Cookies from 'js-cookie'
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
@@ -33,13 +34,23 @@ const routes = [{
   name: 'login',
   path: '/login',
   component: () => import('@/views/login/Login.vue'),
+  // 路由独享守卫 
+  beforeEnter: (to, from, next) => {
+    //若已有token，访问login则直接跳转至home页面
+    if (Cookies.get('token') && to.path === "/login") {
+      next('/home')
+    }
+    next()
+  }
 }]
 
-//配置路由
+//配置路由相关信息
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
 })
+
+
 
 export default router
