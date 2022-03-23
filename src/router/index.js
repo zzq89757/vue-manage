@@ -22,13 +22,13 @@ const routes = [{
     path: 'user',
     component: () => import('@/views/user/User.vue'),
   }, {
-    name: 'page1',
-    path: 'page1',
-    component: () => import('@/views/mall/Mall.vue'),
+    name: 'profile',
+    path: 'profile',
+    component: () => import('@/views/others/Profile.vue'),
   }, {
-    name: 'page2',
-    path: 'page2',
-    component: () => import('@/views/mall/Mall.vue'),
+    name: 'demo',
+    path: 'demo',
+    component: () => import('@/views/others/Demo.vue'),
   }]
 }, {
   name: 'login',
