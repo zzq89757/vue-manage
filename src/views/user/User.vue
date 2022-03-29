@@ -29,7 +29,7 @@
     <!-- 用户数据表格 -->
     <el-card shadow="hover" style="">
       <el-table style="height: 100%" :data="userData">
-        <el-table-column prop="id" label="卡号"></el-table-column>
+        <!-- <el-table-column prop="id" label="卡号"></el-table-column> -->
         <el-table-column prop="name" label="姓名"></el-table-column>
         <el-table-column prop="sex" label="性别"></el-table-column>
         <el-table-column prop="age" label="年龄"></el-table-column>
@@ -123,7 +123,7 @@ export default {
     add(data) {
       this.userData.unshift(data);
     },
-    //直接通过数组索引修改数据，vue无法监听,需要使用vue.set
+    //直接通过数组索引修改数据，vue无法监听,需要使用vue.set或splice
     updated(data) {
       Vue.set(this.userData, this.cur, data)
       console.log(this.userData[0]);
