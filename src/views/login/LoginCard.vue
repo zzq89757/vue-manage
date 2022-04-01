@@ -6,41 +6,76 @@
     <el-card class="card">
       <h3>欢迎使用后台管理系统</h3>
       <el-input v-model="uname"></el-input>
-      <el-input v-model="password" type="password" autofocus @keyup.enter.native="handleLogin()"></el-input>
+      <el-input
+        v-model="password"
+        type="password"
+        autofocus
+        @keyup.enter.native="handleLogin()"
+      ></el-input>
       <el-button type="primary" @click="handleLogin()">登录</el-button>
     </el-card>
   </div>
 </template>
 <script>
-import { Message } from 'element-ui'
+import { Message } from "element-ui";
+import axios from "axios";
+import qs from "qs";
 export default {
-  name: 'LoginCard',
+  name: "LoginCard",
   data() {
     return {
-      uname: "admin",
-      password: "admin"
-    }
+      uname: "test1",
+      password: "1111111",
+    };
   },
   methods: {
     handleLogin() {
-      if (this.uname === "admin" && this.password === "admin") {
-        //设置token
-        this.$store.commit('setToken','admin');
-        //提示登录成功并跳转
-        Message({
-          type: "success",
-          message: "登录成功!",
-        });
-        this.$router.push('home');
-      } else {
+      const nameReg = /^[a-zA-Z0-9]{1,10}$/;
+      const pwdReg = /^[\S]{6,12}$/;
+      // 简单验证用户名密码格式
+      if (!nameReg.test(this.uname)) {
         Message({
           type: "error",
-          message: "用户名或密码错误"
-        })
+          message: "请输入1-10位由字母和数字组成的用户名",
+        });
+        return;
       }
-    }
-  }
-}
+      if (!pwdReg.test(this.password)) {
+        Message({
+          type: "error",
+          message: "密码长度不能小于6位",
+        });
+        return;
+      }
+      axios
+        .post(
+          "http://127.0.0.1/api/login",
+          qs.stringify({
+            username: this.uname,
+            password: this.password,
+          })
+        )
+        .then((res) => {
+          if (res.data.status === 1) {
+            Message({
+              type: "error",
+              message: res.data.message,
+            });
+          } else {
+            // 登录成功 
+            this.$store.commit('setToken',res.data.token);
+            Message({
+              type: "success",
+              message: "登录成功!",
+            });
+            // console.log(res);
+            this.$router.push('home');
+          }
+        })
+        .catch((err) => console.log(err));
+    },
+  },
+};
 </script>
 
 <style lang='less' scoped>

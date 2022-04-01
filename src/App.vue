@@ -11,6 +11,7 @@
 }
 body{
   min-width: 1320px;
+  min-height: 600px;
 }
 #app {
   height: 100vh;

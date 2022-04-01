@@ -14,6 +14,9 @@ export default {
 };
 </script>
 <style lang='less' scoped>
+html,body{
+  height: 100%;
+}
 .login {
   position: relative;
 }
