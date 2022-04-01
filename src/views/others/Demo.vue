@@ -1,24 +1,24 @@
 <!--  -->
 <template>
-  <div></div>
+  <div>
+  </div>
 </template>
 
 <script>
-export default {
-  data () {
-    return {
-    };
-  },
+import  a  from "../../api/axios";
 
+export default {
+  data() {
+    return {};
+  },
+  mounted() {
+  },
   components: {},
 
   computed: {},
 
-  mounted: {},
-
-  methods: {}
-}
-
+  methods: {},
+};
 </script>
 <style lang='scss' scoped>
 </style>

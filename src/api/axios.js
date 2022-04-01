@@ -2,33 +2,34 @@
 
 import axios from 'axios'
 import config from '../config/index'
-// 设置配置 根据开发 和 生产环境不一样 
-const baseUrl = process.env.NODE_ENV === 'development' ? config.baseUrl.dev : config.baseUrl.pro
+import Cookies from 'js-cookie';
+// 设置从配置文件中获取 BaseUrl
+const baseUrl = config.BaseUrl;
+
 class HttpRequst {
   constructor(baseUrl) {
-    this.baseUrl = baseUrl
+    this.baseUrl = baseUrl;
   }
+  // 公共配置
   getInsideConfig () {
     const config = {
-      baseURL: this.baseUrl,
-      header: {
-
-      }
+      baseURL: this.baseUrl
     }
     return config
   }
+  // 请求拦截
   interceptors (instance) {
     instance.interceptors.request.use(function (config) {
-      // 在发送请求之前做些什么
-      console.log('拦截处理请求');
+      // 在发送请求之前将token存入请求头
+      if(Cookies.get("token")) config.headers['Authorization'] = Cookies.get("token");
       return config;
     }, function (error) {
       // 对请求错误做些什么
       return Promise.reject(error);
     });
 
+    // 响应拦截
     instance.interceptors.response.use(function (response) {
-      console.log('处理相应');
       // 对响应数据做点什么
       return response.data;
     }, function (error) {
@@ -37,20 +38,20 @@ class HttpRequst {
       return Promise.reject(error);
     });
   }
-  // {
-  //   baseURL:'/rApi'
-  // }
+
+  // 具体选项
   request (options) {
     // 请求
     // /api/getList  /api/getHome
-    const instanse = axios.create()
+    const instance = axios.create();
     // 技巧
     // /api // api1
     options = { ...(this.getInsideConfig()), ...options }
-    // console.log(options);
-    this.interceptors(instanse)
-    return instanse(options)
+    this.interceptors(instance)
+    return instance(options)
   }
+
+  //并发请求
 }
 
 export default new HttpRequst(baseUrl)

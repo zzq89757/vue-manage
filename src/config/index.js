@@ -1,1 +1,3 @@
-import axios from 'axios';
+module.exports={
+  BaseUrl:'http://localhost/',
+}

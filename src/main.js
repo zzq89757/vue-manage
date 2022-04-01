@@ -59,7 +59,7 @@ Vue.use(Option);
 
 Vue.config.productionTip = false
 
-//使用全局导航守卫
+//使用全局导航守卫 
 router.beforeEach(
   (to,from,next)=>{
     //若无token且当前页面不为登录页，则跳转至登录页

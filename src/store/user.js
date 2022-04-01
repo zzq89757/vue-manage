@@ -1,6 +1,9 @@
 import Cookie from 'js-cookie';
 
 export default {
+  state:{
+    user_info:{}
+  },
   mutations: {
     setToken(state,val){
       Cookie.set('token',val);
@@ -8,5 +11,8 @@ export default {
     cleanToken(state){
       Cookie.remove('token');
     },
+    getUserInfo(state,val){
+      state.user_info=val
+    }
   },
 }

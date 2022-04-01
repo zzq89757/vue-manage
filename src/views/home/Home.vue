@@ -5,7 +5,7 @@
         <div class="user">
           <img :src="usrImg" alt />
           <div class="userinfo">
-            <p class="name">Admin</p>
+            <p class="name">{{username}}</p>
             <p class="acess">超级管理员</p>
           </div>
         </div>
@@ -37,14 +37,18 @@
           :body-style="{ display: 'flex', padding: 0 }"
           shadow="hover"
         >
-          <i :class="`el-icon-${item.icon}`" :style="{ background: item.color }" class="icon"></i>
+          <i
+            :class="`el-icon-${item.icon}`"
+            :style="{ background: item.color }"
+            class="icon"
+          ></i>
           <div class="detail">
             <p class="num">{{ item.value }}</p>
             <p class="txt">{{ item.name }}</p>
           </div>
         </el-card>
       </div>
-      <el-card style="height: 280px;padding:0px;" shadow="hover">
+      <el-card style="height: 280px; padding: 0px" shadow="hover">
         <Echart :chartData="lineData" style="line"></Echart>
       </el-card>
       <div class="graph">
@@ -110,15 +114,29 @@
   flex-direction: column;
   justify-content: flex-end;
 }
-.line{
-  width:100%
+.line {
+  width: 100%;
 }
 </style>
 <script>
-import { getDate } from "../../utils/date";
+import { getDate } from "@/utils/date";
 import axios from "axios";
-import Echart from "../../components/Echart.vue";
+import a from "@/api/axios";
+import Echart from "@/components/Echart.vue";
 export default {
+  created() {
+    a.request({
+      method: "get",
+      url: "/my/userinfo",
+    })
+      .then((res) => {
+        // console.log(res);
+        this.$store.commit('getUserInfo',res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  },
   mounted() {
     axios
       .get("/api/home/getData")
@@ -134,35 +152,35 @@ export default {
         //获取各品牌列表
         const brand = Object.keys(undealData[0]);
         //整合各个品牌数据
-        brand.forEach(key => {
-          series.push(
-            {
-              name: key,
-              type: "line",
-              data: undealData.map(item => item[key])
-            }
-          )
+        brand.forEach((key) => {
+          series.push({
+            name: key,
+            type: "line",
+            data: undealData.map((item) => item[key]),
+          });
         });
         this.lineData = { Xais, series };
 
         //处理用户数据
         let uData = res.data.data.userData;
         this.userData = {
-          Xais: uData.map(item => item.date),
-          series: [{
-            name: '新增用户',
-            data: uData.map(item => item.new),
-            type: 'bar',
-          }, {
-            name: '活跃用户',
-            data: uData.map(item => item.active),
-            type: 'bar',
-          }]
-        }
+          Xais: uData.map((item) => item.date),
+          series: [
+            {
+              name: "新增用户",
+              data: uData.map((item) => item.new),
+              type: "bar",
+            },
+            {
+              name: "活跃用户",
+              data: uData.map((item) => item.active),
+              type: "bar",
+            },
+          ],
+        };
 
         //处理饼图数据
-        this.videoData = {series:res.data.data.videoData};
-
+        this.videoData = { series: res.data.data.videoData };
       })
       .catch((err) => console.log(err));
   },
@@ -223,6 +241,9 @@ export default {
     lastLoginTime() {
       return getDate(Date.now(), 0);
     },
+    username(){
+      return this.$store.state.user.user_info.username
+    }
   },
   components: { Echart },
 };

@@ -17,9 +17,10 @@
   </div>
 </template>
 <script>
-import { Message } from "element-ui";
-import axios from "axios";
+import axios from "@/api/axios";
 import qs from "qs";
+import { msg } from "@/utils/message";
+
 export default {
   name: "LoginCard",
   data() {
@@ -33,44 +34,25 @@ export default {
       const nameReg = /^[a-zA-Z0-9]{1,10}$/;
       const pwdReg = /^[\S]{6,12}$/;
       // 简单验证用户名密码格式
-      if (!nameReg.test(this.uname)) {
-        Message({
-          type: "error",
-          message: "请输入1-10位由字母和数字组成的用户名",
-        });
-        return;
-      }
-      if (!pwdReg.test(this.password)) {
-        Message({
-          type: "error",
-          message: "密码长度不能小于6位",
-        });
-        return;
-      }
-      axios
-        .post(
-          "http://127.0.0.1/api/login",
-          qs.stringify({
+      if (!nameReg.test(this.uname))
+        return msg("请输入1-10位由字母和数字组成的用户名");
+      if (!pwdReg.test(this.password)) return msg("密码长度不能小于6位");
+      // 发起登录请求
+      axios.request({
+          method: "post",
+          url: "api/login",
+          data: qs.stringify({
             username: this.uname,
             password: this.password,
-          })
-        )
+          }),
+        })
         .then((res) => {
-          if (res.data.status === 1) {
-            Message({
-              type: "error",
-              message: res.data.message,
-            });
-          } else {
-            // 登录成功 
-            this.$store.commit('setToken',res.data.token);
-            Message({
-              type: "success",
-              message: "登录成功!",
-            });
-            // console.log(res);
-            this.$router.push('home');
-          }
+          console.log(res);
+          if (res.status) return msg(res.message);
+          // 登录成功
+          this.$store.commit("setToken", res.token);
+          msg(res.message, "success");
+          this.$router.push("home");
         })
         .catch((err) => console.log(err));
     },
