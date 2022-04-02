@@ -130,8 +130,7 @@ export default {
       url: "/my/userinfo",
     })
       .then((res) => {
-        // console.log(res);
-        this.$store.commit('getUserInfo',res);
+        this.$store.commit('getUserInfo',res.data);
       })
       .catch((err) => {
         console.log(err);

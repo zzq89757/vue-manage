@@ -25,8 +25,8 @@ export default {
   name: "LoginCard",
   data() {
     return {
-      uname: "test1",
-      password: "1111111",
+      uname: "zzq",
+      password: "111111",
     };
   },
   methods: {
