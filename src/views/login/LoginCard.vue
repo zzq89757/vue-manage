@@ -47,7 +47,6 @@ export default {
           }),
         })
         .then((res) => {
-          console.log(res);
           if (res.status) return msg(res.message);
           // 登录成功
           this.$store.commit("setToken", res.token);

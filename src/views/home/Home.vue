@@ -5,7 +5,7 @@
         <div class="user">
           <img :src="usrImg" alt />
           <div class="userinfo">
-            <p class="name">{{username}}</p>
+            <p class="name">{{ username }}</p>
             <p class="acess">超级管理员</p>
           </div>
         </div>
@@ -130,11 +130,12 @@ export default {
       url: "/my/userinfo",
     })
       .then((res) => {
-        this.$store.commit('getUserInfo',res.data);
+        this.$store.commit("getUserInfo", res.data);
       })
       .catch((err) => {
         console.log(err);
       });
+
   },
   mounted() {
     axios
@@ -240,9 +241,9 @@ export default {
     lastLoginTime() {
       return getDate(Date.now(), 0);
     },
-    username(){
-      return this.$store.state.user.user_info.username
-    }
+    username() {
+      return this.$store.state.user.user_info.username;
+    },
   },
   components: { Echart },
 };

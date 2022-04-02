@@ -58,10 +58,10 @@
 </template>
 
 <script>
-import axios from "axios";
+import axios from "@/api/axios";
 import CommonForm from "../../components/CommonForm.vue";
 import { MessageBox, Message } from "element-ui";
-import Vue from 'vue';
+import Vue from "vue";
 export default {
   data() {
     return {
@@ -74,12 +74,11 @@ export default {
   },
   mounted() {
     axios
-      .get("/api/user/getUser")
-      .then((res) => {
-        this.userData = res.data.list;
-        console.log(this.userData);
+      .request({
+        method: "get",
+        url: "/api/data/user",
       })
-      .catch((err) => console.log(err));
+      .then((res) => (this.userData = res.data));
   },
   components: { CommonForm },
   methods: {
@@ -125,7 +124,7 @@ export default {
     },
     //直接通过数组索引修改数据，vue无法监听,需要使用vue.set或splice
     updated(data) {
-      Vue.set(this.userData, this.cur, data)
+      Vue.set(this.userData, this.cur, data);
       console.log(this.userData[0]);
     },
   },

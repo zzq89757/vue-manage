@@ -13,7 +13,7 @@
       <el-dropdown size="mini">
         <span><img :src="usrImg" alt="" /></span>
         <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item >个人中心</el-dropdown-item>
+          <el-dropdown-item @click.native="toProfile()">个人中心</el-dropdown-item>
           <el-dropdown-item @click.native="logOut()">退出登录</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
@@ -40,6 +40,9 @@ export default {
         message:"注销成功"
       })
       this.$router.push('login');
+    },
+    toProfile(){
+      this.$router.push('profile')
     }
   },
 };
