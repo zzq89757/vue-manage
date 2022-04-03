@@ -1,21 +1,17 @@
 <!--  -->
 <template>
   <el-menu
-    default-active="1-4-1"
+    :default-active="currentIndex"
     class="el-menu-vertical-demo"
     background-color="#545c64"
     text-color="#fff"
     active-text-color="#ffd04b"
     :collapse="isCollapse"
+    router="true"
   >
-    <h3 class="title">{{isCollapse? '后台':'通用后台管理系统'}}</h3>
+    <h3 class="title">{{ isCollapse ? "后台" : "通用后台管理系统" }}</h3>
     <!-- 不含子菜单部分 -->
-    <el-menu-item
-      :index="item.path"
-      v-for="item in nosub"
-      :key="item.path"
-      @click="goTo(item)"
-    >
+    <el-menu-item :index="item.path" v-for="item in nosub" :key="item.path">
       <i :class="'el-icon-' + item.icon"></i>
       <span slot="title">{{ item.label }}</span>
     </el-menu-item>
@@ -30,7 +26,6 @@
           :index="sub.path"
           v-for="sub in item.children"
           :key="sub.path"
-          @click="goTo(sub)"
           >{{ sub.label }}</el-menu-item
         >
       </el-menu-item-group>
@@ -114,11 +109,10 @@ export default {
     isCollapse() {
       return this.$store.state.menu.isCollapse;
     },
-  },
-  methods: {
-    goTo(item) {
-      this.$router.push(item.name);
+    currentIndex() {
+      if (this.$route.name === "home") return "/";
+      return this.$route.path;
     },
-  },
+  }
 };
 </script>

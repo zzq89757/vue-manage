@@ -12,7 +12,7 @@
       </div>
       <div>
         <span>性别</span>
-        <el-select v-model="inputData.sex" placeholder="请选择">
+        <el-select v-model="inputData.gender" placeholder="请选择">
           <el-option
             v-for="item in options"
             :key="item.value"
@@ -78,7 +78,7 @@ export default {
           name: "",
           age: "",
           birth: "",
-          sex: "",
+          gender: "",
           addr: "",
         };
       },
