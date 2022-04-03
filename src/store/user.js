@@ -11,7 +11,7 @@ export default {
     cleanToken(state){
       Cookie.remove('token');
     },
-    getUserInfo(state,val){
+    setUserInfo(state,val){
       state.user_info=val
     }
   },
