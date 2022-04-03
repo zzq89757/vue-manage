@@ -6,7 +6,7 @@
           <img :src="usrImg" alt />
           <div class="userinfo">
             <p class="name">{{ username }}</p>
-            <p class="acess">超级管理员</p>
+            <p class="acess">{{userPermission}}</p>
           </div>
         </div>
         <div class="login-info">
@@ -123,6 +123,7 @@ import { getDate } from "@/utils/date";
 import axios from "axios";
 import a from "@/api/axios";
 import Echart from "@/components/Echart.vue";
+import { mapState } from "vuex";
 export default {
   created() {
     a.request({
@@ -135,7 +136,6 @@ export default {
       .catch((err) => {
         console.log(err);
       });
-
   },
   mounted() {
     axios
@@ -237,12 +237,20 @@ export default {
     };
   },
   computed: {
+    ...mapState({
+      user_info:(state)=>state.user.user_info
+    }),
     //随机生成上次登录的时间
     lastLoginTime() {
       return getDate(Date.now(), 0);
     },
+    // 获取用户信息
     username() {
-      return this.$store.state.user.user_info.username;
+      return this.user_info.username;
+    },
+    userPermission() {
+      if(this.user_info.permission) return '超级管理员'
+      return '普通用户';
     },
   },
   components: { Echart },

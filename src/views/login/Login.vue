@@ -16,6 +16,7 @@ export default {
 <style lang='less' scoped>
 html,body{
   height: 100%;
+  min-height: 614px;
 }
 .login {
   position: relative;
