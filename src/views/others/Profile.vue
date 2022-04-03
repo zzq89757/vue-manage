@@ -19,7 +19,7 @@
 import axios from "@/api/axios";
 import QueryString from "qs";
 import { msg } from "../../utils/message";
-import Cookie from 'js-cookie'
+import Cookie from 'js-cookie';
 export default {
   data() {
     return {
@@ -27,13 +27,6 @@ export default {
       newPwd: "",
     };
   },
-
-  components: {},
-
-  computed: {},
-
-  mounted: {},
-
   methods: {
     updatePwd() {
       // 新旧密码验证

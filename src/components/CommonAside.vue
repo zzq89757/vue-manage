@@ -7,7 +7,7 @@
     text-color="#fff"
     active-text-color="#ffd04b"
     :collapse="isCollapse"
-    router="true"
+    :router=true
   >
     <h3 class="title">{{ isCollapse ? "后台" : "通用后台管理系统" }}</h3>
     <!-- 不含子菜单部分 -->
